@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from pizzashopapp.forms import UserForm, PizzaShopForm, UserFormForEdit
+from pizzashopapp.forms import UserForm, PizzaShopForm, UserFormForEdit, PizzaForm
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
