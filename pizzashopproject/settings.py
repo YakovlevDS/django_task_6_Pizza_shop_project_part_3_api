@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pizzashopapp',
     'bootstrap4',
+     'oauth2_provider',
+    'social_django',
+    'rest_framework_social_oauth2',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +68,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -127,3 +132,21 @@ LOGIN_REDIRECT_URL = '/'
 MEDIA_ROOT = (BASE_DIR / 'media')
 MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+AUTHENTICATION_BACKENDS = (
+    
+   'rest_framework_social_oauth2.backends.DjangoOAuth2',
+   'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.facebook.FacebookAppOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+)
+
+# Facebook configuration
+SOCIAL_AUTH_FACEBOOK_KEY = '1654697824884493'
+SOCIAL_AUTH_FACEBOOK_SECRET = '3c06773cb171e1f4166ec7ca5e34a13d'
+
+# Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from Facebook.
+# Email is not sent by default, to get it, you must request the email permission.
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, email'}
