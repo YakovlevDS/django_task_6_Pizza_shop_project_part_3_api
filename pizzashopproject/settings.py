@@ -42,16 +42,20 @@ INSTALLED_APPS = [
      'oauth2_provider',
     'social_django',
     'rest_framework_social_oauth2',
+     "whitenoise.runserver_nostatic",
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    
 ]
 
 ROOT_URLCONF = 'pizzashopproject.urls'
@@ -133,7 +137,9 @@ MEDIA_ROOT = (BASE_DIR / 'media')
 MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 import os
-STATIC_ROOT= os.path.join(BASE_DIR,'staticfiles')
+STATIC_ROOT = BASE_DIR / "staticfiles"
+# STATIC_ROOT= os.path.join(BASE_DIR,'staticfiles')
+
 AUTHENTICATION_BACKENDS = (
     
    'rest_framework_social_oauth2.backends.DjangoOAuth2',
@@ -168,3 +174,4 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',  
     )
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

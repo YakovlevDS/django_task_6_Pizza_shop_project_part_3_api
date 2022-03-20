@@ -16,5 +16,6 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pizzashopproject.settings')
 application = get_wsgi_application()
 
 # use whitelist package to serve static files on heroku
-from whitenoise.django import DjangoWhiteNoise
-application = DjangoWhiteNoise(application)
+# from whitenoise.django import DjangoWhiteNoise
+from whitenoise import WhiteNoise
+application = Whitenoise(application)
