@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '_1p4-lh65sghs24+1-1a0@d_t@42oixw9qq=fvp(8e*c1dgjkt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['obscure-fortress-45411.herokuapp.com','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['obscure-fortress-45411', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -39,23 +39,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pizzashopapp',
     'bootstrap4',
-     'oauth2_provider',
+    'oauth2_provider',
     'social_django',
     'rest_framework_social_oauth2',
-     "whitenoise.runserver_nostatic",
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
-    
 ]
 
 ROOT_URLCONF = 'pizzashopproject.urls'
@@ -135,17 +131,17 @@ LOGIN_REDIRECT_URL = '/'
 
 MEDIA_ROOT = (BASE_DIR / 'media')
 MEDIA_URL = '/media/'
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-import os
-STATIC_ROOT = BASE_DIR / "staticfiles"
-# STATIC_ROOT= os.path.join(BASE_DIR,'staticfiles')
+
+STATIC_ROOT = (BASE_DIR / 'staticfiles')
+
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env )
 
 AUTHENTICATION_BACKENDS = (
-    
+   'social_core.backends.facebook.FacebookOAuth2',
    'rest_framework_social_oauth2.backends.DjangoOAuth2',
    'django.contrib.auth.backends.ModelBackend',
-    'social_core.backends.facebook.FacebookAppOAuth2',
-    'social_core.backends.facebook.FacebookOAuth2',
 )
 
 # Facebook configuration
@@ -156,11 +152,8 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '3c06773cb171e1f4166ec7ca5e34a13d'
 # Email is not sent by default, to get it, you must request the email permission.
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    'fields': 'id, name, email'}
-
-import dj_database_url
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env )
+    'fields': 'id, name, email'
+}
 
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
@@ -172,6 +165,5 @@ SOCIAL_AUTH_PIPELINE = (
     'pizzashopapp.social_auth_pipeline.create_client',
     'social_core.pipeline.social_auth.associate_user',
     'social_core.pipeline.social_auth.load_extra_data',
-    'social_core.pipeline.user.user_details',  
-    )
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    'social_core.pipeline.user.user_details',
+) 

@@ -17,5 +17,13 @@ application = get_wsgi_application()
 
 # use whitelist package to serve static files on heroku
 # from whitenoise.django import DjangoWhiteNoise
+
+
 from whitenoise import WhiteNoise
-application = Whitenoise(application)
+
+application = WhiteNoise(application)
+
+
+
+application = WhiteNoise(application, root="pizzashopapp/static/")
+# application.add_files("/path/to/more/static/files", prefix="more-files/")
