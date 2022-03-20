@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '_1p4-lh65sghs24+1-1a0@d_t@42oixw9qq=fvp(8e*c1dgjkt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['obscure-fortress-45411.herokuapp.com','localhost','127.0.0.1']
 
