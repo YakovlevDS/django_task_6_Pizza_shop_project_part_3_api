@@ -25,7 +25,7 @@ SECRET_KEY = '_1p4-lh65sghs24+1-1a0@d_t@42oixw9qq=fvp(8e*c1dgjkt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['obscure-fortress-45411.herokuapp.com',localhost,127.0.0.1]
 
 
 # Application definition
@@ -133,6 +133,7 @@ MEDIA_ROOT = (BASE_DIR / 'media')
 MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
+STATIC_ROOT= os.path.join(BASE_DIR,'staticfiles')
 AUTHENTICATION_BACKENDS = (
     
    'rest_framework_social_oauth2.backends.DjangoOAuth2',
@@ -150,6 +151,10 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '3c06773cb171e1f4166ec7ca5e34a13d'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'id, name, email'}
+
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env )
 
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
